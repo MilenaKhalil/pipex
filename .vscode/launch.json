@@ -1,0 +1,13 @@
+{
+	"configurations": [
+		{
+			"name": "file doesn't exist", // can be any name, appears in the debug dropdown
+			"request": "launch",
+			"type": "cppdbg",
+			"program": "${workspaceRoot}/pipex",
+			"cwd": "${workspaceFolder}",
+			"MIMode": "lldb",
+			"args": ["input", "cat", "ls", "mkdir", "touch", "outpt"],
+		},
+	]
+}

@@ -6,11 +6,12 @@
 #    By: mikhalil <mikhalil@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/06 21:11:14 by mikhalil      #+#    #+#                  #
-#    Updated: 2023/05/06 21:11:17 by mikhalil      ########   odam.nl          #
+#    Updated: 2023/05/10 21:09:24 by mikhalil      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 SRC =	pipex.c \
+		childs.c
 
 LIBFT = ./libft/libft.a
 

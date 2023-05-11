@@ -6,7 +6,7 @@
 /*   By: mikhalil <mikhalil@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/06 21:10:57 by mikhalil      #+#    #+#                 */
-/*   Updated: 2023/05/10 21:32:30 by mikhalil      ########   odam.nl         */
+/*   Updated: 2023/05/11 16:49:32 by mikhalil      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ typedef struct s_file
 typedef struct s_commands
 {
 	char	**argv;
-	char	**com_paths;
+	char	**paths;
 	int		argc;
 }	t_commands;
 
 void	first_child(t_file *info, t_commands *com, char **envp);
 void	second_child(t_file *info, t_commands *com, char **envp);
+char	*get_path(char **paths, char *command);
 
 #endif

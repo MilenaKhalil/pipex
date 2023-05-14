@@ -6,7 +6,7 @@
 /*   By: mikhalil <mikhalil@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/06 21:11:02 by mikhalil      #+#    #+#                 */
-/*   Updated: 2023/05/11 18:44:45 by mikhalil      ########   odam.nl         */
+/*   Updated: 2023/05/14 17:58:35 by mikhalil      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	exit_man(char *str, int par)
 {
-	write(2, str, ft_strlen(str));
+	(void) str;
+
+	perror("Error");
+	//write(2, str, ft_strlen(str));
 	if (par)
 		free(str);
-	exit(EXIT_FAILURE);
+	exit(1);
 }
 
 char	*get_path(char **paths, char *command)
@@ -66,9 +69,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_commands	com;
 	t_file		file_inf;
-	int			p1;
 	int			p2;
-	//int			ar[2][2];
 
 	if (argc < 5)
 		exit_man("Error: not enought arguments\n", 0);
@@ -78,21 +79,30 @@ int	main(int argc, char **argv, char **envp)
 	file_inf.fd_output = open(argv[argc - 1], O_WRONLY | O_TRUNC);
 	if (file_inf.fd_output == -1)
 		exit_man("Error: output file does not exist\n", 0);
-	if (pipe(file_inf.fd_pipe) == -1)
-		exit_man("Error: pipe failed\n", 0);
 	com.argv = argv;
 	com.argc = argc;
 	all_paths(&com, envp);
-	p1 = fork();
-	//printf("prosses id1 = %d\n", p1);
-	if (p1 == 0)
-		first_child(&file_inf, &com, envp);
-	p2 = fork();
-	if (p2 == 0)
-		second_child(&file_inf, &com, envp);
+	int n = 2;
+	while (n <= argc - 2)
+	{
+		if (pipe(file_inf.fd_new_pipe[n]) == -1)
+			exit_man("Error: pipe failed\n", 0);
+		p2 = fork();
+		if (p2 == 0)
+		{
+			if (n == 2)
+				first_child(&file_inf, &com, envp);
+			else if (n < argc - 2)
+				middle_child(&file_inf, &com, envp, n);
+			else
+				last_child(&file_inf, &com, envp);
+		}
+		//waitpid(p2);
+		//close(file_inf.fd_new_pipe[n][0]);
+		//close(file_inf.fd_new_pipe[n][1]);
+		n++;
+	}
 	close(file_inf.fd_output);
 	close(file_inf.fd_input);
-	close(file_inf.fd_pipe[0]);
-	close(file_inf.fd_pipe[1]);
-	exit(EXIT_SUCCESS);
+	exit(0);
 }

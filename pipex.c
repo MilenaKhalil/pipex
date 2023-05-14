@@ -6,18 +6,19 @@
 /*   By: mikhalil <mikhalil@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/06 21:11:02 by mikhalil      #+#    #+#                 */
-/*   Updated: 2023/05/14 17:58:35 by mikhalil      ########   odam.nl         */
+/*   Updated: 2023/05/14 20:43:16 by mikhalil      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+//int k = 0;
 
 void	exit_man(char *str, int par)
 {
 	(void) str;
 
 	perror("Error");
-	//write(2, str, ft_strlen(str));
 	if (par)
 		free(str);
 	exit(1);
@@ -97,12 +98,9 @@ int	main(int argc, char **argv, char **envp)
 			else
 				last_child(&file_inf, &com, envp);
 		}
-		//waitpid(p2);
-		//close(file_inf.fd_new_pipe[n][0]);
-		//close(file_inf.fd_new_pipe[n][1]);
+		ft_putnbr_fd(n, 2);
+		wait(NULL);
 		n++;
 	}
-	close(file_inf.fd_output);
-	close(file_inf.fd_input);
 	exit(0);
 }

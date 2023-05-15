@@ -6,7 +6,7 @@
 /*   By: mikhalil <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/16 14:32:37 by mikhalil      #+#    #+#                 */
-/*   Updated: 2022/10/28 15:44:32 by mikhalil      ########   odam.nl         */
+/*   Updated: 2023/05/15 17:40:46 by mikhalil      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	out[i + j] = '\0';
 	return (out);
 }
-/*#include <string.h>
-int main()
-{
-	char const	*a = "";
-	char const	*b = "";
-
-	printf("%s\n", strjoin(a, b));
-	return 0;
-}*/

@@ -6,7 +6,7 @@
 /*   By: mikhalil <mikhalil@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/06 21:10:57 by mikhalil      #+#    #+#                 */
-/*   Updated: 2023/05/14 19:20:44 by mikhalil      ########   odam.nl         */
+/*   Updated: 2023/05/15 18:08:27 by mikhalil      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_file
 {
 	int	fd_input;
 	int	fd_output;
-	int	fd_new_pipe[2000][2];
+	int	fd_pipe[2][2];
 }	t_file;
 
 typedef struct s_commands
@@ -32,9 +32,9 @@ typedef struct s_commands
 	int		argc;
 }	t_commands;
 
-void	first_child(t_file *info, t_commands *com, char **envp);
-void	middle_child(t_file *info, t_commands *com, char **envp, int n);
-void	last_child(t_file *info, t_commands *com, char **envp);
-char	*get_path(char **paths, char *command);
+void	exit_man(char *prog_name, char *str);
+void	child(t_file *info, t_commands *com, char **envp, int n);
+char	*get_path(char **paths, char *command, char *prog_name);
+int		make_children(t_file *info, t_commands *com, char **envp);
 
 #endif

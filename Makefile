@@ -6,7 +6,7 @@
 #    By: mikhalil <mikhalil@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/06 21:11:14 by mikhalil      #+#    #+#                  #
-#    Updated: 2023/05/14 17:44:28 by mikhalil      ########   odam.nl          #
+#    Updated: 2023/05/15 16:17:05 by mikhalil      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT = ./libft/libft.a
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra #-g3
+CFLAGS = -Wall -Werror -Wextra
 
 NAME = pipex
 

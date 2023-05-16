@@ -32,9 +32,12 @@ typedef struct s_commands
 	int		argc;
 }	t_commands;
 
-void	exit_man(char *prog_name, char *str);
+void    free_paths(char **paths);
+void	exit_man(char *prog_name, char *str, char **paths);
 void	child(t_file *info, t_commands *com, char **envp, int n);
+void    end_program(t_file *info, t_commands *com, char **envp, int k);
+void    here_doc(t_commands *com, t_file *file_inf, char** envp);
 char	*get_path(char **paths, char *command, char *prog_name);
-int		make_children(t_file *info, t_commands *com, char **envp);
+int		make_children(t_file *info, t_commands *com, char **envp, int n);
 
 #endif

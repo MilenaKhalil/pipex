@@ -43,7 +43,9 @@ SRC = ft_memcmp.c \
 	  ft_striteri.c \
 	  ft_strjoin.c \
 	  ft_memchr.c	\
-	  ft_strlcat.c
+	  ft_strlcat.c \
+	  get_next_line.c \
+	  get_next_line_utils.c
 
 SRC_BONUS = ft_lstadd_front_bonus.c \
 			ft_lstnew_bonus.c \
@@ -74,7 +76,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar -rc $(NAME) $(OBJ)
 
-%.o: %.c
+%.o: %.c libft.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:

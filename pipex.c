@@ -11,32 +11,25 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <errno.h>
 
-void	exit_man(char *prog_name, char *str)
-{
-	if (!str)
-		exit(1);
-	write(2, prog_name, ft_strlen(prog_name));
-	write(2, ": ", 2);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-	free(str);
-	exit(1);
-}
-
-char	*make_str(char *str1, char *str2, char *str3)
+char	*make_str(char *str1, char *str2, char *str3, char **paths)
 {
 	char	*temp;
 	char	*str;
 
 	temp = ft_strjoin(str1, str2);
 	if (!temp)
+    {
+        free_paths(paths);
 		exit(1);
+    }
 	str = ft_strjoin(temp, str3);
-	if (!str)
-		exit(1);
 	free(temp);
+	if (!str)
+    {
+        free_paths(paths);
+		exit(1);
+    }
 	return (str);
 }
 
@@ -48,7 +41,7 @@ char	*get_path(char **paths, char *command, char *prog_name)
 	i = 0;
 	while (paths[i])
 	{
-		str = make_str(paths[i], "/", command);
+		str = make_str(paths[i], "/", command, paths);
 		if (!access(str, X_OK))
 			return (str);
 		free(str);
@@ -56,8 +49,8 @@ char	*get_path(char **paths, char *command, char *prog_name)
 	}
 	if (!paths[i])
 	{
-		str = make_str("command ", command, " does not exist");
-		exit_man(prog_name, str);
+		str = make_str("command ", command, " does not exist", paths);
+		exit_man(prog_name, str, paths);
 	}
 	return (NULL);
 }
@@ -79,30 +72,40 @@ void	all_paths(t_commands *com, char **envp)
 		exit(1);
 }
 
-int	main(int argc, char **argv, char **envp)
+void    end_program(t_file *info, t_commands *com, char **envp, int k)
 {
-	t_commands	com;
-	t_file		file_inf;
-	int			p2;
-	int			status;
+    int p2;
+	int	status;
 
-	if (argc < 5)
-		exit_man(argv[0], ft_strdup("Invalid arguments"));
-	file_inf.fd_input = open(argv[1], O_RDONLY);
-	if (file_inf.fd_input == -1)
-		exit_man(argv[0], ft_strdup("Failed open input file"));
-	file_inf.fd_output = open(argv[argc - 1], O_WRONLY | O_TRUNC);
-	if (file_inf.fd_output == -1)
-		exit_man(argv[0], ft_strdup("Failed open output file"));
-	com.argv = argv;
-	com.argc = argc;
-	all_paths(&com, envp);
-	p2 = make_children(&file_inf, &com, envp);
+	p2 = make_children(info, com, envp, k);
 	waitpid(p2, &status, WUNTRACED);
 	while (wait(NULL) != -1)
 	{
 	}
-	close(file_inf.fd_input);
-	close(file_inf.fd_output);
-	return (WEXITSTATUS(status));
+	close(info->fd_input);
+	close(info->fd_output);
+    free_paths(com->paths);
+	exit (WEXITSTATUS(status));
 }
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_commands	com;
+	t_file		file_inf;
+
+	if (argc < 5 || (argc < 6 && !ft_strncmp(argv[1], "here_doc", 8)))
+		exit_man(argv[0], ft_strdup("Invalid arguments"), NULL);
+	com.argv = argv;
+	com.argc = argc;
+	all_paths(&com, envp);
+	if (!ft_strncmp(argv[1], "here_doc", 8))
+        here_doc(&com, &file_inf, envp);
+	file_inf.fd_output = open(argv[argc - 1], O_WRONLY | O_TRUNC);
+	if (file_inf.fd_output == -1)
+		exit_man(argv[0], ft_strdup("Failed open output file"), NULL);
+	file_inf.fd_input = open(argv[1], O_RDONLY);
+	if (file_inf.fd_input == -1)
+		exit_man(argv[0], ft_strdup("Failed open input file"), com.paths);
+    end_program(&file_inf, &com, envp, 2);
+}
+

@@ -6,7 +6,7 @@
 /*   By: mikhalil <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/05 12:38:00 by mikhalil      #+#    #+#                 */
-/*   Updated: 2022/10/30 12:48:22 by mikhalil      ########   odam.nl         */
+/*   Updated: 2023/05/20 19:55:37 by mikhalil      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,3 @@ char	*ft_strchr(const char *s, int c)
 		return (str + i);
 	return (0);
 }
-/*#include <string.h>
-#include <stdio.h>
-int main()
-{
-	char a[20];
-	char c;
-	char *t;
-	strcpy(a, "figid");
-	c = 'g';
-	t = strchr(a, c);
-	printf("%s\n", t);
-	
-	strcpy(a, "figid");
-	c = 'g';
-	t = ft_strchr(a, c);
-	printf("%s\n", t);
-	return 0;
-}*/

@@ -6,16 +6,31 @@
 #    By: mikhalil <mikhalil@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/06 21:11:14 by mikhalil      #+#    #+#                  #
-#    Updated: 2023/05/15 16:17:05 by mikhalil      ########   odam.nl          #
+#    Updated: 2023/05/20 21:31:19 by mikhalil      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 SRC =	pipex.c \
-		childs.c
+		childs.c \
+		exits.c
+
+SRC_BONUS =	pipex_bonus.c \
+			childs_bonus.c \
+			exits_bonus.c
 
 LIBFT = ./libft/libft.a
 
-OBJ = $(SRC:.c=.o)
+OBJ_REG = $(SRC:.c=.o)
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
+
+
+ifdef WITH_BONUS
+OBJ = $(SRC_BONUS:.c=.o)
+HEADER = pipex_bonus.h
+else
+OBJ = $(OBJ_REG)
+HEADER = pipex.h
+endif
 
 CFLAGS = -Wall -Werror -Wextra
 
@@ -33,11 +48,14 @@ $(LIBFT):
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) $^ -o $@
 
-%.o: %.c pipex.h
+%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
+bonus:
+	$(MAKE) WITH_BONUS=1 all
+
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ_REG) $(OBJ_BONUS)
 	$(MAKE) clean -C libft
 
 fclean: clean
@@ -46,4 +64,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all re fclean clean
+.PHONY: all re fclean clean bonus

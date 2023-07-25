@@ -18,21 +18,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <errno.h>
-
-typedef struct s_file
-{
-	int	fd_input;
-	int	fd_output;
-	int	fd_pipe[2][2];
-}	t_file;
-
-typedef struct s_commands
-{
-	char	**argv;
-	char	**paths;
-	int		argc;
-	int		pid;
-}	t_commands;
+# include "pipex.h"
 
 void	free_paths(char **paths);
 void	exit_man(char *prog_name, char *str, char **paths);

@@ -42,5 +42,6 @@ void	file_error(char *prog_name, char *file_name, char **paths);
 void	end_program(t_file *info, t_commands *com);
 char	*get_path(char **paths, char *command, char *prog_name);
 char	*make_str(char *str1, char *str2, char *str3, char **paths);
+void	all_paths(t_commands *com, char **envp);
 
 #endif

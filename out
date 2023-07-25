@@ -1,0 +1,8 @@
+#    By: mikhalil <mikhalil@student.codam.nl>         +#+                      #
+#    Created: 2023/05/06 21:11:14 by mikhalil      #+#    #+#                  #
+#    Updated: 2023/05/20 21:31:19 by mikhalil      ########   odam.nl          #
+CFLAGS = -Wall -Werror -Wextra
+all: $(NAME)
+	$(MAKE) WITH_BONUS=1 all
+re: fclean all
+.PHONY: all re fclean clean bonus

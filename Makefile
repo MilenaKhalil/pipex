@@ -12,11 +12,13 @@
 
 SRC =	pipex.c \
 		childs.c \
-		exits.c
+		exits.c \
+		main.c
 
-SRC_BONUS =	pipex_bonus.c \
+SRC_BONUS =	pipex.c \
 			childs_bonus.c \
-			exits_bonus.c
+			exits.c \
+			main_bonus.c
 
 LIBFT = ./libft/libft.a
 
@@ -27,14 +29,14 @@ OBJ_BONUS = $(SRC_BONUS:.c=.o)
 ifdef WITH_BONUS
 OBJ = $(SRC_BONUS:.c=.o)
 HEADER = pipex_bonus.h
+NAME = pipex_bonus
 else
 OBJ = $(OBJ_REG)
 HEADER = pipex.h
+NAME = pipex
 endif
 
 CFLAGS = -Wall -Werror -Wextra
-
-NAME = pipex
 
 INCLUDE = -I ./
 

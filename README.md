@@ -1,18 +1,18 @@
 # pipex
 
-Self implementation of pipes and here_doc. The program is behaving like shell pipes. I'm using "pipe" command from the standart C library
-and also some functions I wrote myself (which are also alike to the standart ones).
+Self implementation of pipes and here_doc. The program is behaving like shell pipes. I'm using "pipe" command from the standard C library
+and also some functions I wrote myself (which are similar alike to the standard ones).
 
 ## Get started
 
-First of all you should git clone the repo in your terminal. And then enter the folder you've created. Do it in the folowing way:
+First of all you should git clone the repo in your terminal. And then enter the folder you've created. Do it in the following way:
 
 ```console
 git clone https://github.com/MilenaKhalil/pipex pipex
 cd pipex
 ```
 
-Build the progect by running "make" or "make bonus":
+Build the project by running "make" or "make bonus":
 
 ```console
 make
@@ -25,7 +25,7 @@ make bonus
 
 ## Running the project
 
-Run the exacutable with folowing parametrs: input file, command one, command two, output file. If you are running the bonus part you can
+Run the executable with following parameters: input file, command one, command two, output file. If you are running the bonus part you can
 use as many commands as you want. Here are some examples:
 
 ```console
@@ -33,10 +33,10 @@ use as many commands as you want. Here are some examples:
 cat out
 ```
 And then it should output some lines in the Makefile containing "al" in it.
->NOTE! If the function has parametrs, like in this example, put it inside brackets together. Otherwise the program will try to find command "al",
->and throuw an error
+>NOTE! If the function has parameters, like in this example, put it inside brackets together. Otherwise the program will try to find command "al",
+>and throw an error
 
-If you want to run with here_doc, use it as the first parametr and then put the keyword. The key word is the end and the begining of the here_doc.
+If you want to run with here_doc, use it as the first parameter and then put the keyword. The key word is the end and the beginning of the here_doc.
 ```console
 ./pipex_bonus here_doc haha cat cat out
 this
